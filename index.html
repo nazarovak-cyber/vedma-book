@@ -118,6 +118,22 @@ section{padding:76px 0}
 .quiz{text-align:center;padding:clamp(30px,5vw,56px)}
 .quiz .lead{max-width:560px;margin:14px auto 26px}
 
+/* gift (test) */
+.gift{border-radius:28px;padding:clamp(28px,5vw,56px);color:#fff;background:radial-gradient(circle at 85% 15%,var(--deep1),var(--deep2) 75%);display:grid;grid-template-columns:1fr auto;gap:clamp(24px,5vw,56px);align-items:center;box-shadow:0 24px 60px rgba(46,36,121,.3)}
+.gift .eyebrow{color:#d9d2ff}
+.gift h2{color:#fff;margin:14px 0 12px}
+.gift h2 em{color:#c9beff}
+.gift p{color:rgba(255,255,255,.88);max-width:520px}
+.gift .chips{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 24px}
+.gift .chips span{font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
+.gift .btn{background:#fff;color:var(--g3);box-shadow:none}
+.gift .small{font-size:13px;margin-top:12px;color:rgba(255,255,255,.7)}
+.gift-card{width:190px;aspect-ratio:3/5;border-radius:16px;padding:8px;background:linear-gradient(160deg,#fff,var(--g1));transform:rotate(6deg);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.gift-card div{height:100%;border-radius:10px;background:radial-gradient(circle at 50% 35%,var(--deep1),var(--deep2) 75%);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 10px;border:1px solid rgba(255,255,255,.25)}
+.gift-card small{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.gift-card b{font-family:var(--serif);font-size:96px;line-height:1;color:#fff}
+.gift-card span{font-size:26px;color:#fff}
+
 /* faq */
 details{border-bottom:1px solid var(--line);padding:18px 0}
 summary{cursor:pointer;font-weight:700;color:var(--ink);font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
@@ -142,6 +158,9 @@ footer{padding:36px 0 110px;text-align:center;font-size:13px;color:var(--muted);
   .cta-row,.proof{justify-content:center}
   .cta-row .btn{width:100%}
   .free{grid-template-columns:1fr;text-align:center}
+  .gift{grid-template-columns:1fr}
+  .gift-card{display:none}
+  .gift .btn{width:100%}
   .author{grid-template-columns:1fr}
   .author .photo{width:min(70%,260px);margin:0 auto}
   .sticky{display:block}
@@ -153,7 +172,7 @@ footer{padding:36px 0 110px;text-align:center;font-size:13px;color:var(--muted);
 <div class="wrap top">
   <a class="logo" href="#top">VICTORIA BAIN<small>истории за гранью привычного</small></a>
   <nav class="nav">
-    <a href="#book">О книге</a><a href="#free">Фрагмент</a><a href="#formats">Форматы</a><a href="#author">Автор</a>
+    <a href="#book">О книге</a><a href="#test">Тест</a><a href="#free">Фрагмент</a><a href="#formats">Форматы</a><a href="#author">Автор</a>
     <a class="btn small" href="#formats" data-goal="nav_buy">Купить</a>
   </nav>
 </div>
@@ -170,7 +189,7 @@ footer{padding:36px 0 110px;text-align:center;font-size:13px;color:var(--muted);
     <p class="lead">Книга для тех, кто ищет ответы. История современной женщины, которая однажды вспомнила свою прошлую жизнь, — и от которой невозможно оторваться.</p>
     <div class="cta-row">
       <a class="btn" href="https://victoria-bain-book.nazarova-k.chatgpt.site/checkout/?book=witch&format=pdf&source=original" data-goal="hero_buy">Купить книгу · 500 ₽</a>
-      <a class="btn ghost" href="https://victoria-bain-book.nazarova-k.chatgpt.site/read/" data-goal="hero_read">Читать 3 главы бесплатно</a>
+      <a class="btn ghost" href="read/" data-goal="hero_read">Читать 3 главы бесплатно</a>
     </div>
     <div class="proof"><span>ePub + PDF сразу после оплаты</span><span>есть аудио и печатная версия</span></div>
   </div>
@@ -200,6 +219,20 @@ footer{padding:36px 0 110px;text-align:center;font-size:13px;color:var(--muted);
   </div>
 </section>
 
+<section id="test">
+  <div class="wrap gift">
+    <div>
+      <span class="eyebrow">Подарок читателям · бесплатно</span>
+      <h2>Прежде чем открыть книгу, узнайте, <em>кто вы в ней</em></h2>
+      <p>Тест из 10 вопросов за 2 минуты. В конце — личный расклад: ваш архетип силы, его тень и практики на 7 дней.</p>
+      <div class="chips"><span>Видящая</span><span>Сновидица</span><span>Целительница</span><span>Царица</span><span>Хранительница памяти</span></div>
+      <a class="btn" href="test/" data-goal="to_quiz">Узнать свою силу ✦</a>
+      <p class="small">Без регистрации · результат сразу</p>
+    </div>
+    <div class="gift-card" aria-hidden="true"><div><small>ваш архетип</small><b>?</b><span>☾</span></div></div>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
     <span class="eyebrow">Что вы найдёте в книге</span>
@@ -220,7 +253,7 @@ footer{padding:36px 0 110px;text-align:center;font-size:13px;color:var(--muted);
       <p>Прочитайте или послушайте начало истории. Если она ваша — вы почувствуете это с первых страниц.</p>
     </div>
     <div class="btns">
-      <a class="btn" href="https://victoria-bain-book.nazarova-k.chatgpt.site/read/" data-goal="free_read">Читать три главы</a>
+      <a class="btn" href="read/" data-goal="free_read">Читать три главы</a>
       <a class="btn ghost" href="https://drive.google.com/file/d/1JPhsdUXUq2s0uYnbRFo-sbrtonNG7HoB/view?usp=share_link" target="_blank" rel="noopener" data-goal="free_listen">Слушать три главы</a>
     </div>
   </div>
@@ -268,22 +301,12 @@ footer{padding:36px 0 110px;text-align:center;font-size:13px;color:var(--muted);
     </div>
   </div>
 </section>
-
-<section>
-  <div class="narrow card quiz">
-    <span class="eyebrow">Бесплатный тест · 2 минуты</span>
-    <h2 style="margin-top:14px">Какая <em>скрытая сила</em> живёт в вас?</h2>
-    <p class="lead">Видящая, Сновидица, Целительница, Царица или Хранительница памяти? Узнайте свой архетип и получите личный расклад.</p>
-    <a class="btn ghost" href="https://nazarovak-cyber.github.io/vedma-test/" data-goal="to_quiz">Пройти тест ✦</a>
-  </div>
-</section>
-
 <section>
   <div class="narrow">
     <span class="eyebrow">Вопросы</span>
     <h2 style="margin:14px 0 18px">Коротко о покупке</h2>
     <details open><summary>Как я получу электронную книгу?</summary><p>Сразу после оплаты: доставка мгновенная, начать читать можно уже через пару минут. В комплекте два формата — ePub и PDF.</p></details>
-    <details><summary>Можно ли сначала познакомиться с книгой?</summary><p>Да. Три главы можно бесплатно <a href="https://victoria-bain-book.nazarova-k.chatgpt.site/read/">прочитать</a> или <a href="https://drive.google.com/file/d/1JPhsdUXUq2s0uYnbRFo-sbrtonNG7HoB/view?usp=share_link" target="_blank" rel="noopener">послушать</a>.</p></details>
+    <details><summary>Можно ли сначала познакомиться с книгой?</summary><p>Да. Три главы можно бесплатно <a href="read/">прочитать</a> или <a href="https://drive.google.com/file/d/1JPhsdUXUq2s0uYnbRFo-sbrtonNG7HoB/view?usp=share_link" target="_blank" rel="noopener">послушать</a>.</p></details>
     <details><summary>Есть ли бумажная версия?</summary><p>Да, в твёрдой обложке. Она продаётся и доставляется через Wildberries.</p></details>
     <details><summary>Это вымысел или реальная история?</summary><p>Это роман, но в его основе — реальные события, которыми люди лично делились с автором.</p></details>
   </div>
@@ -294,7 +317,7 @@ footer{padding:36px 0 110px;text-align:center;font-size:13px;color:var(--muted);
   <p class="lead" style="margin-top:14px">Возможно, эта — как раз ваша.</p>
   <div class="cta-row">
     <a class="btn" href="https://victoria-bain-book.nazarova-k.chatgpt.site/checkout/?book=witch&format=pdf&source=original" data-goal="final_buy">Купить книгу · 500 ₽</a>
-    <a class="btn ghost" href="https://victoria-bain-book.nazarova-k.chatgpt.site/read/" data-goal="final_read">Сначала прочитать фрагмент</a>
+    <a class="btn ghost" href="read/" data-goal="final_read">Сначала прочитать фрагмент</a>
   </div>
 </div>
 
