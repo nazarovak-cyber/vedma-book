@@ -100,6 +100,22 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
 .rounds i{width:12px;height:12px;border-radius:50%;background:var(--track);border:1px solid var(--line)}
 .rounds i.hit{background:var(--accent)}.rounds i.miss{background:#fff;border-color:var(--accent)}
 
+/* картины и двери */
+.mcs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.mc{width:calc(33.33% - 7px);max-width:150px;aspect-ratio:10/13;border-radius:14px;border:3px solid var(--g1);background:radial-gradient(circle at 50% 30%,var(--deep1),var(--deep2) 80%);cursor:pointer;padding:6px;transition:all .25s;box-shadow:0 10px 24px rgba(46,36,121,.25)}
+.mc svg{width:100%;height:100%;display:block}
+.mc:hover{transform:translateY(-6px)}
+.mc.sel{transform:translateY(-6px) scale(1.04);border-color:#fff;box-shadow:0 0 0 3px var(--g2),0 14px 34px rgba(106,79,224,.5)}
+.mc.dim{opacity:.4}
+.doors{display:flex;gap:14px;justify-content:center;margin:8px 0}
+.door{width:min(27vw,120px);aspect-ratio:3/5;border-radius:999px 999px 10px 10px;border:4px solid var(--g1);background:linear-gradient(180deg,var(--deep1),var(--deep2));cursor:pointer;position:relative;display:grid;place-items:center;transition:all .4s;box-shadow:0 12px 28px rgba(46,36,121,.3);padding:0}
+.door::after{content:"";position:absolute;right:16%;top:56%;width:9px;height:9px;border-radius:50%;background:#ffe9a8}
+.door span{font-size:44px;line-height:1}
+.door:hover:not(:disabled){transform:translateY(-6px)}
+.door.open{background:radial-gradient(circle at 50% 40%,#fff,#e4deff)}
+.door.open::after{display:none}
+.door.pick{box-shadow:0 0 0 3px var(--g2),0 12px 28px rgba(46,36,121,.3)}
+.door.dim{opacity:.4}
 /* ползунки */
 .sl{margin:0 0 22px}
 .sl-top{display:flex;justify-content:space-between;gap:12px;font-weight:600;color:var(--ink);margin-bottom:8px}
@@ -122,7 +138,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 /* результат */
 .res-head{text-align:center;padding:16px 0 6px}
 .flipzone{perspective:1200px;margin:22px auto 8px;width:min(290px,76vw)}
-.big-card{width:100%;aspect-ratio:3/5;position:relative;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.2,1);cursor:pointer;border:0;background:none;padding:0;display:block}
+.big-card{width:100%;aspect-ratio:3/5;position:relative;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.2,1);display:block}
 .big-card.flip{transform:rotateY(180deg);cursor:default}
 .big-card .b,.big-card .f{position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:11px;background:linear-gradient(160deg,var(--g1),var(--g2) 45%,var(--g3));box-shadow:0 24px 60px rgba(106,79,224,.35)}
 .big-card .in{height:100%;border-radius:12px;background:radial-gradient(circle at 50% 35%,var(--deep1),var(--deep2) 76%);border:1px solid rgba(255,255,255,.25);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:22px 14px;text-align:center;color:#fff}
@@ -196,10 +212,10 @@ footer{padding:26px 0 90px;text-align:center;font-size:13px;color:var(--muted);b
 <!-- ВСТУПЛЕНИЕ -->
 <div class="screen on wrap intro" id="s-intro">
   <div class="orb" aria-hidden="true"><svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width=".8"><circle cx="100" cy="100" r="96"/><circle cx="100" cy="100" r="80" stroke-dasharray="2 5"/><circle cx="100" cy="100" r="60"/><polygon points="100,22 168,140 32,140"/><polygon points="100,178 32,60 168,60"/></svg><b>☾</b></div>
-  <span class="eyebrow">Ритуал знакомства с силой · 3 минуты</span>
+  <span class="eyebrow">Знакомство с вашей силой · 2 минуты</span>
   <h1 style="margin-top:12px">Какая <em>сила</em> выбрала вас?</h1>
-  <p class="lead">Это не обычный тест. Вы вытянете карту, настроите свои каналы, проверите интуицию — и получите личный расклад с вашим архетипом, числом судьбы и талисманами.</p>
-  <div class="feats"><span>🃏 карта силы</span><span>☾ проверка интуиции</span><span>✦ число судьбы</span><span>◈ талисманы</span><span>🜂 практики</span></div>
+  <p class="lead">Это не обычный тест. Вы выберете свою стихию и картину, проверите интуицию — и получите личный расклад с вашим архетипом, числом судьбы и талисманами.</p>
+  <div class="feats"><span>🃏 карта силы</span><span>🖼 картина-метафора</span><span>☾ проверка интуиции</span><span>✦ число судьбы</span><span>◈ талисманы</span><span>🜂 практики</span></div>
   <div class="card form">
     <label class="f">Как вас зовут?<input type="text" id="fName" maxlength="24" placeholder="Имя — чтобы расклад был личным" autocomplete="given-name"></label>
     <label class="f">Дата рождения<input type="date" id="fDate" min="1930-01-01" max="2015-12-31"></label>
@@ -216,14 +232,10 @@ footer{padding:26px 0 90px;text-align:center;font-size:13px;color:var(--muted);b
   <div id="qBody"></div>
 </div>
 
-<!-- ПЕЧАТЬ -->
+<!-- ЗАГРУЗКА -->
 <div class="screen wrap seal-wrap" id="s-seal">
-  <span class="eyebrow">Последний шаг</span>
-  <h2 style="margin-top:12px">Загадайте вопрос, который вас волнует</h2>
-  <p class="muted" style="margin-top:10px">Удерживайте печать, пока круг не замкнётся. Думайте о своём вопросе.</p>
-  <button class="seal" id="seal" aria-label="Удерживайте, чтобы открыть расклад"><span>☾</span></button>
-  <p id="loadText">Нажмите и держите</p>
-  <p class="note" style="margin-top:16px"><a href="#" id="sealSkip">Открыть расклад без печати</a></p>
+  <div class="orb" aria-hidden="true"><svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width=".8"><circle cx="100" cy="100" r="96"/><circle cx="100" cy="100" r="80" stroke-dasharray="2 5"/><circle cx="100" cy="100" r="60"/><polygon points="100,22 168,140 32,140"/><polygon points="100,178 32,60 168,60"/></svg><b>☾</b></div>
+  <p id="loadText" style="margin-top:20px"></p>
 </div>
 
 <!-- РЕЗУЛЬТАТ -->
@@ -389,19 +401,18 @@ const DESTINY = {1:["Первая","Вы пришли начинать. Ваш �
 const ZOD = [[120,"Козерог","Земля"],[219,"Водолей","Воздух"],[320,"Рыбы","Вода"],[420,"Овен","Огонь"],[521,"Телец","Земля"],[621,"Близнецы","Воздух"],[722,"Рак","Вода"],[823,"Лев","Огонь"],[923,"Дева","Земля"],[1023,"Весы","Воздух"],[1122,"Скорпион","Вода"],[1221,"Стрелец","Огонь"],[1231,"Козерог","Земля"]];
 const MESSAGES = ["То, чего вы ждёте, уже идёт к вам. Не торопите.","Ответ придёт во сне в ближайшие три ночи. Запишите его.","Вы не обязаны объяснять то, что чувствуете.","Отпустите то, что держите из страха, — руки нужны для нового.","Человек, о котором вы подумали первым, тоже думает о вас.","Ваше «нет» сейчас важнее вашего «да».","Доверьтесь первому ощущению. Оно уже было верным.","То, что кажется концом, — поворот. Дорога продолжается."];
 
+const MC = {"seer": ["Маяк", "Вас тянет к свету в тумане. Вы из тех, кто видит дорогу раньше других — и светит остальным.", "<svg viewBox=\"0 0 100 130\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M43 102 L47 52 H53 L57 102Z\"/><rect x=\"45\" y=\"42\" width=\"10\" height=\"10\"/><path d=\"M43 42 L50 33 L57 42Z\"/><path d=\"M56 47 L94 34 M56 47 L94 60 M44 47 L6 34 M44 47 L6 60\" opacity=\".55\"/><path d=\"M8 108 Q20 102 32 108 T56 108 T80 108 T96 106\"/><path d=\"M14 118 Q26 112 38 118 T62 118 T86 118\" opacity=\".5\"/><circle cx=\"20\" cy=\"16\" r=\"1.2\" fill=\"#fff\"/><circle cx=\"78\" cy=\"20\" r=\"1.2\" fill=\"#fff\"/><circle cx=\"64\" cy=\"10\" r=\"1\" fill=\"#fff\"/></svg>"], "dreamer": ["Луна над водой", "Вас зовёт ночь и её отражения. Ответы приходят к вам, когда мир затихает.", "<svg viewBox=\"0 0 100 130\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M56 18 A22 22 0 1 0 74 54 A17 17 0 1 1 56 18Z\"/><path d=\"M10 84 Q22 78 34 84 T58 84 T82 84 T94 82\"/><path d=\"M18 96 Q30 90 42 96 T66 96 T86 96\" opacity=\".7\"/><path d=\"M30 108 Q40 103 50 108 T70 108\" opacity=\".45\"/><path d=\"M44 74 H60 M47 68 H57\" opacity=\".5\"/><circle cx=\"22\" cy=\"24\" r=\"1.2\" fill=\"#fff\"/><circle cx=\"84\" cy=\"14\" r=\"1.2\" fill=\"#fff\"/><circle cx=\"30\" cy=\"50\" r=\"1\" fill=\"#fff\"/></svg>"], "healer": ["Чаша", "Вы выбрали то, что наполняет. Рядом с вами людям становится легче — и вам важно не опустеть самой.", "<svg viewBox=\"0 0 100 130\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M26 60 H74 Q72 92 50 94 Q28 92 26 60Z\"/><path d=\"M50 94 V108 M36 112 H64\"/><path d=\"M50 26 q-6 9 0 13 q6 -4 0 -13Z\"/><path d=\"M36 36 q-5 8 0 11 q5 -3 0 -11Z\" opacity=\".7\"/><path d=\"M64 36 q-5 8 0 11 q5 -3 0 -11Z\" opacity=\".7\"/><path d=\"M32 68 Q50 76 68 68\" opacity=\".5\"/><circle cx=\"18\" cy=\"22\" r=\"1.2\" fill=\"#fff\"/><circle cx=\"82\" cy=\"24\" r=\"1.2\" fill=\"#fff\"/></svg>"], "queen": ["Пламя", "Вас притягивает огонь. В вас много воли: вы зажигаете и ведёте за собой.", "<svg viewBox=\"0 0 100 130\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M50 16 C72 46 76 64 67 82 C62 96 38 96 33 82 C25 64 44 54 50 16Z\"/><path d=\"M50 52 C59 67 59 78 50 87 C41 78 43 67 50 52Z\" opacity=\".75\"/><path d=\"M26 106 H74 M34 114 H66\" /><path d=\"M20 40 l3 3 M80 40 l-3 3 M16 62 h4 M80 62 h4\" opacity=\".5\"/></svg>"], "keeper": ["Древо", "Вы выбрали корни. За вами стоит род — и память, которая глубже одной жизни.", "<svg viewBox=\"0 0 100 130\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"50\" cy=\"40\" r=\"24\"/><path d=\"M50 96 V52 M50 72 L37 58 M50 64 L63 50 M50 56 L43 46\"/><path d=\"M18 96 H82\"/><path d=\"M50 96 L34 114 M50 96 L50 120 M50 96 L66 114 M42 105 L28 108 M58 105 L72 108\" opacity=\".7\"/></svg>"]};
 /* ================= ШАГИ ================= */
 const K=["seer","dreamer","healer","queen","keeper"];
 const STEPS = [
  {t:"tiles",q:"Какая стихия отзывается в вас сильнее всего?",h:"Не думайте долго — первый отклик самый точный.",
   o:[["🔥","Огонь","страсть и воля","queen"],["💧","Вода","чувства и очищение","healer"],["🌬️","Воздух","ясность и знаки","seer"],["🌿","Земля","корни и род","keeper"],["🌙","Ночь","луна и сны","dreamer"]]},
- {t:"draw",q:"Перед вами три карты. Выберите ту, что зовёт",h:"Не анализируйте. Рука сама знает."},
+ {t:"draw",q:"Какая из картин зовёт вас?",h:"Не анализируйте. Выберите ту, на которую хочется смотреть."},
  {t:"choice",q:"Вы входите в незнакомую комнату, полную людей. Что замечаете первым?",
   o:[["Общее настроение — чувства людей будто переходят ко мне","healer"],["Вдруг ощущение: «я здесь уже была»","keeper"],["Сразу понимаю, кто здесь главный и чем всё закончится","seer"],["Хочется что-то изменить: свет, порядок, ход разговора","queen"],["Детали, похожие на что-то из моего сна","dreamer"]]},
- {t:"multi",q:"Что из этого случалось с вами?",h:"Отметьте всё, что было хотя бы раз.",
-  o:[["Сказала в сердцах — и это сбылось","queen"],["Сильное дежавю или «воспоминание», которого не может быть","keeper"],["Предчувствие, которое оправдалось","seer"],["Чужая боль или тревога ощущалась в моём теле","healer"],["Во сне я поняла, что сплю","dreamer"],["Чувствовала, что высшие силы уберегли меня от беды",null]]},
- {t:"sliders",q:"Настройте свои каналы",h:"Двигайте ползунки — насколько это про вас.",
-  o:[["Чувствую настроение людей, даже когда они молчат","healer"],["Вижу яркие сны и помню их","dreamer"],["Мои предчувствия сбываются","seer"]]},
- {t:"game",q:"Проверим вашу интуицию",h:"Под одной из трёх карт — луна. Три попытки. Почувствуйте, где она."},
+ {t:"choice",q:"Что из этого случалось с вами чаще всего?",
+  o:[["Сказала в сердцах — и это сбылось","queen"],["Сильное дежавю или «воспоминание», которого не может быть","keeper"],["Предчувствие, которое оправдалось","seer"],["Чужая боль или тревога ощущалась в моём теле","healer"],["Во сне я поняла, что сплю","dreamer"],["Чувствовала, что высшие силы уберегли меня от беды","keeper"]]},
+ {t:"game",q:"Проверим вашу интуицию",h:"За одной из трёх дверей — луна. Прислушайтесь к себе и нажмите на ту дверь, за которой она."},
  {t:"choice",q:"Какой образ вам ближе всего?",
   o:[["Царица на троне древнего города у моря","queen"],["Знахарка с травами у огня","healer"],["Жрица у оракула, видящая будущее","seer"],["Женщина, которая во сне путешествует по мирам","dreamer"],["Старинная книга с именами всех женщин рода","keeper"]]},
  {t:"choice",q:"Что вам чаще всего говорят люди?",
@@ -428,7 +439,7 @@ $('#startBtn').onclick=()=>{
   track('quiz2_start'); step=0; ans.length=0; show('s-quiz'); render();
 };
 $('#qBack').onclick=()=>{ if(step>0){step--;render();} };
-function next(){ step++; if(step<STEPS.length) render(); else { show('s-seal'); resetSeal(); } }
+function next(){ step++; if(step<STEPS.length) render(); else finish(); }
 function nextBtn(enabled=true,label='Дальше →'){return `<button class="btn wide next" id="nx" ${enabled?'':'disabled'}>${label}</button>`;}
 
 function render(){
@@ -453,39 +464,23 @@ function render(){
     $('#nx').onclick=()=>{ans[step]=cur.slice();next();};
   } else if(st.t==='draw'){
     const done=ans[step];
-    b.innerHTML=h+`<div class="deck">${[0,1,2].map(i=>`<button class="tc" data-i="${i}" aria-label="Карта ${i+1}"><span class="b">✦</span><span class="f"></span></button>`).join('')}</div><p class="reveal-msg" id="rm"></p>`+nextBtn(!!done);
-    const reveal=(i,k)=>{const c=b.querySelectorAll('.tc');c.forEach((x,j)=>{if(j!==i)x.classList.add('dim');x.disabled=true;});c[i].querySelector('.f').innerHTML=`<span style="color:var(--accent)">${whiteIcon(k)}</span><span>${A[k].name}</span>`;c[i].classList.add('flip');
-      $('#rm').innerHTML=`Вам выпала карта <b>«${A[k].name}»</b> — ${A[k].sub}. Запомните её: она появится в вашем раскладе.`;$('#nx').disabled=false;};
-    if(done) reveal(done.i,done.k);
-    b.querySelectorAll('.tc').forEach(x=>x.onclick=()=>{if(ans[step])return;const k=K[Math.floor(Math.random()*5)];ans[step]={i:+x.dataset.i,k};reveal(+x.dataset.i,k);});
+    b.innerHTML=h+`<div class="mcs">${K.map(k=>`<button class="mc" data-k="${k}" aria-label="Картина: ${MC[k][0]}">${MC[k][2]}</button>`).join('')}</div><p class="reveal-msg" id="rm"></p>`+nextBtn(!!done);
+    const reveal=k=>{b.querySelectorAll('.mc').forEach(x=>{x.classList.toggle('sel',x.dataset.k===k);x.classList.toggle('dim',x.dataset.k!==k);});$('#rm').innerHTML=`<b>«${MC[k][0]}»</b><br>${MC[k][1]}`;$('#nx').disabled=false;};
+    if(done) reveal(done.k);
+    b.querySelectorAll('.mc').forEach(x=>x.onclick=()=>{ans[step]={k:x.dataset.k};reveal(x.dataset.k);});
     $('#nx').onclick=next;
   } else if(st.t==='game'){
-    let g=ans[step]||{r:[],done:false};
-    const draw=()=>{b.innerHTML=h+`<div class="rounds">${[0,1,2].map(i=>`<i class="${g.r[i]===true?'hit':g.r[i]===false?'miss':''}"></i>`).join('')}</div><div class="deck">${[0,1,2].map(i=>`<button class="tc" data-i="${i}" aria-label="Карта ${i+1}"><span class="b">?</span><span class="f"></span></button>`).join('')}</div><p class="reveal-msg" id="rm">${g.done?gameText(g):`Попытка ${g.r.length+1} из 3`}</p>`+nextBtn(g.done);
-      $('#nx').onclick=()=>{ans[step]=g;next();};
-      if(g.done){b.querySelectorAll('.tc').forEach(x=>{x.disabled=true;x.classList.add('dim');});return;}
-      b.querySelectorAll('.tc').forEach(x=>x.onclick=()=>{const moon=Math.floor(Math.random()*3), pick=+x.dataset.i, hit=moon===pick;const c=b.querySelectorAll('.tc');
-        c.forEach((y,j)=>{y.disabled=true;y.querySelector('.f').innerHTML=`<span class="big">${j===moon?'🌙':'·'}</span>`;if(j===moon||j===pick)y.classList.add('flip');else y.classList.add('dim');});
-        g.r.push(hit);$('#rm').innerHTML=hit?'<b>Да! Луна здесь.</b>':'Луна была под другой картой.';
-        setTimeout(()=>{if(g.r.length>=3){g.done=true;ans[step]=g;}draw();},1300);});};
-    draw();
+    const g=ans[step];
+    b.innerHTML=h+`<div class="doors">${[0,1,2].map(i=>`<button class="door" data-i="${i}" aria-label="Дверь ${i+1}"><span></span></button>`).join('')}</div><p class="reveal-msg" id="rm"></p>`;
+    const open=(pick,moon)=>{b.querySelectorAll('.door').forEach((d,j)=>{d.disabled=true;if(j===pick||j===moon){d.classList.add('open');d.querySelector('span').textContent=j===moon?'🌙':'';}else d.classList.add('dim');if(j===pick)d.classList.add('pick');});
+      $('#rm').innerHTML=pick===moon?'<b>Луна здесь.</b> Вы почувствовали верно.':'Луна была за другой дверью. Интуиция любит тишину — в раскладе будет практика для неё.';};
+    if(g){open(g.pick,g.moon);b.insertAdjacentHTML('beforeend',nextBtn());$('#nx').onclick=next;return;}
+    b.querySelectorAll('.door').forEach(x=>x.onclick=()=>{if(ans[step])return;const moon=Math.floor(Math.random()*3),pick=+x.dataset.i;ans[step]={pick,moon};open(pick,moon);setTimeout(()=>{if(STEPS[step]===st&&$('#s-quiz').classList.contains('on'))next();},2300);});
   }
 }
-function gameText(g){const n=g.r.filter(Boolean).length;return [`<b>0 из 3.</b> Сегодня интуиция молчит — так бывает, когда в голове шумно. Попробуйте ещё раз после тишины.`,`<b>1 из 3.</b> Ровно столько даёт случайность. Интуиция есть, но ей нужна тренировка.`,`<b>2 из 3!</b> Вдвое лучше случайного. Ваше чутьё сегодня включено.`,`<b>3 из 3!</b> Так выходит примерно у одной из двадцати семи. Запомните это ощущение «знаю».`][n];}
 
-/* печать */
-let holdT=null, holdP=0;
-function resetSeal(){holdP=0;$('#seal').style.setProperty('--p',0);$('#seal').classList.remove('holding');$('#loadText').textContent='Нажмите и держите';}
-function finish(){track('quiz2_complete');const t=["Раскладываем ваши ответы…","Считаем число судьбы…","Открываем вашу карту…"];let i=0;$('#loadText').textContent=t[0];$('#seal').classList.add('holding');
-  const iv=setInterval(()=>{i++;if(i<t.length)$('#loadText').textContent=t[i];},750);setTimeout(()=>{clearInterval(iv);renderResult();},2300);}
-(()=>{const s=$('#seal');let fired=false;
-  const start=e=>{e.preventDefault();if(fired)return;s.classList.add('holding');$('#loadText').textContent='Держите…';clearInterval(holdT);holdT=setInterval(()=>{holdP+=2.5;s.style.setProperty('--p',holdP);if(holdP>=100){clearInterval(holdT);fired=true;finish();setTimeout(()=>fired=false,4000);}},50);};
-  const stop=()=>{if(fired)return;clearInterval(holdT);s.classList.remove('holding');if(holdP<100){holdP=0;s.style.setProperty('--p',0);$('#loadText').textContent='Нажмите и держите';}};
-  s.addEventListener('pointerdown',start);['pointerup','pointerleave','pointercancel'].forEach(ev=>s.addEventListener(ev,stop));
-  s.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat)start(e);});s.addEventListener('keyup',stop);
-  s.addEventListener('contextmenu',e=>e.preventDefault());
-  $('#sealSkip').onclick=e=>{e.preventDefault();if(!fired){fired=true;finish();setTimeout(()=>fired=false,4000);}};
-})();
+function finish(){track('quiz2_complete');show('s-seal');const x=["Раскладываем ваши ответы…","Считаем число судьбы…","Открываем вашу карту…"];let i=0;$('#loadText').textContent=x[0];
+  const iv=setInterval(()=>{i++;if(i<x.length)$('#loadText').textContent=x[i];},650);setTimeout(()=>{clearInterval(iv);renderResult();},2000);}
 
 function calc(){
   const sc={seer:0,dreamer:0,healer:0,queen:0,keeper:0};let lvl=0,signs=0,hits=0,card=null;
@@ -495,12 +490,13 @@ function calc(){
     else if(st.t==='level') lvl+=st.o[a][1];
     else if(st.t==='multi'){signs=a.length;a.forEach(j=>{const k=st.o[j][1];if(k)sc[k]+=1.5;});}
     else if(st.t==='sliders') a.forEach((v,j)=>sc[st.o[j][1]]+=Math.round(v/10*3*10)/10);
-    else if(st.t==='draw'){card=a.k;sc[a.k]+=1;}
-    else if(st.t==='game'){hits=a.r.filter(Boolean).length;sc.seer+=hits*0.5;}
+    else if(st.t==='draw'){card=a.k;sc[a.k]+=1.5;}
+    else if(st.t==='game'){hits=a.pick===a.moon?1:0;sc.seer+=hits;}
   });
   const ranked=K.slice().sort((a,b)=>sc[b]-sc[a]||K.indexOf(a)-K.indexOf(b));
   const L=LEVELS.find(l=>lvl>=l.min&&lvl<=l.max);
-  const pct=Math.min(96,Math.round(L.pct[0]+Math.min(signs,5)/5*(L.pct[1]-L.pct[0])));
+  const tot=Object.values(sc).reduce((x,y)=>x+y,0)||1;
+  const pct=Math.min(96,Math.round(L.pct[0]+Math.min(1,sc[ranked[0]]/tot*2)*(L.pct[1]-L.pct[0])));
   return {sc,ranked,L,pct,signs,hits,card};
 }
 function destiny(d){let n=d.replace(/\D/g,'').split('').reduce((a,b)=>a+ +b,0);while(n>9&&n!==11&&n!==22)n=String(n).split('').reduce((a,b)=>a+ +b,0);return n;}
@@ -526,23 +522,23 @@ function renderResult(){
   const codes=[];
   if(dn) codes.push(`<div><small>Число судьбы</small><b>${dn}</b><span>${DESTINY[dn][0]}</span></div>`);
   if(z) codes.push(`<div><small>Стихия рождения</small><b>${z[2]}</b><span>${z[1]}</span></div>`);
-  codes.push(`<div><small>Интуиция сегодня</small><b>${hits} / 3</b><span>${["молчит","просыпается","включена","на пике"][hits]}</span></div>`);
-  if(card) codes.push(`<div><small>Ваша карта</small><b style="font-size:21px;padding:7px 0;overflow-wrap:anywhere">${A[card].name}</b><span>${card===k?'совпала с вашей силой':'ваша скрытая грань'}</span></div>`);
+  codes.push(`<div><small>Интуиция сегодня</small><b>${hits?'🌙':'☁️'}</b><span>${hits?'луну нашли с первой попытки':'луна спряталась'}</span></div>`);
+  if(card) codes.push(`<div><small>Ваша картина</small><b style="font-size:23px;padding:6px 0">${MC[card][0]}</b><span>${card===k?'совпала с вашей силой':'ваша скрытая грань'}</span></div>`);
   $('#resBody').innerHTML=`
   <div class="res-head"><span class="eyebrow">Расклад готов</span>
-    <h1 style="margin-top:12px;font-size:clamp(34px,6.5vw,52px)">${nm?nm+', ваша':'Ваша'} карта ждёт</h1>
-    <p class="muted" style="margin-top:8px" id="tapHint">Нажмите на карту, чтобы открыть</p></div>
-  <div class="flipzone"><button class="big-card" id="bigCard" aria-label="Открыть карту">
-    <span class="b"><span class="in"><span>☾</span>Откройте меня</span></span>
+    <h1 style="margin-top:12px;font-size:clamp(34px,6.5vw,52px)">${nm?nm+', ваша':'Ваша'} карта силы</h1>
+    <p class="muted" style="margin-top:8px" id="tapHint">&nbsp;</p></div>
+  <div class="flipzone"><div class="big-card" id="bigCard">
+    <span class="b"><span class="in"><span>☾</span></span></span>
     <span class="f"><span class="in"><span class="roman">${a.roman}</span>${whiteIcon(k)}<span><span class="tname" style="display:block">${a.name}</span><span class="tsub" style="display:block">${a.sub}</span></span></span></span>
-  </button></div>
+  </div></div>
   <div id="rest">
    <div class="res-head"><h2>${nm?nm+', ваша':'Ваша'} сила — <em>${a.name}</em></h2></div>
    <div class="card block"><h3>Суть вашего дара</h3><p>${a.essence}</p></div>
    <div class="card block"><h3>Ваш личный код</h3><div class="code">${codes.join('')}</div>
      ${dn?`<p style="margin-top:14px"><b style="color:var(--ink)">Число ${dn} — «${DESTINY[dn][0]}».</b> ${DESTINY[dn][1]} Вместе с даром ${a.gen} это редкое сочетание.</p>`:`<p class="note" style="margin-top:12px">Число судьбы не посчитано — вы не указали дату рождения.</p>`}
-     ${card&&card!==k?`<p style="margin-top:10px">Вы вытянули карту «${A[card].name}» — это ваша скрытая грань: ${A[card].short}. Она проявится, когда главный дар окрепнет.</p>`:''}
-     ${card===k?`<p style="margin-top:10px">Карта, которую вы вытянули вслепую, совпала с вашим архетипом. Рука знала раньше головы.</p>`:''}</div>
+     ${card&&card!==k?`<p style="margin-top:10px">Вы выбрали картину «${MC[card][0]}» — это знак архетипа «${A[card].name}», вашей скрытой грани: ${A[card].short}. Она проявится, когда главный дар окрепнет.</p>`:''}
+     ${card===k?`<p style="margin-top:10px">Картина «${MC[card][0]}», которую вы выбрали в начале, — знак вашего же архетипа. Вы узнали себя раньше, чем ответили на вопросы.</p>`:''}</div>
    <div class="card block"><h3>Карта ваших сил</h3>${radar(sc,ranked)}
      <p style="margin-top:8px">Вторая по силе — <b style="color:var(--ink)">${a2.name}</b> (${a2.short}). ${x.duo}</p></div>
    <div class="card block"><h3>Как ваш дар проявляется</h3><ul class="li">${a.shows.map(s=>`<li>${s}</li>`).join('')}</ul></div>
@@ -551,7 +547,7 @@ function renderResult(){
    <div class="card block"><h3>Уровень раскрытия</h3><div class="level"><div class="ring" style="--p:${pct}"><b>${pct}%</b></div><div class="lt"><strong>${L.name}</strong><p>${L.text}</p></div></div></div>
    <div class="card block shadow"><h3>Тень: когда сила закрыта</h3><p class="muted" style="margin-bottom:12px">Нераскрытый дар не исчезает — он ищет выход. Отметьте, что вам знакомо:</p>
      <div class="opts">${a.shadow.map((s,i)=>`<button class="opt multi" data-s="${i}" aria-pressed="false"><span class="dot"></span><span>${s}</span></button>`).join('')}</div><p id="shadowOut"></p></div>
-   <div class="card block oracle"><span class="eyebrow" style="color:#fff">Послание на сегодня</span><h3 style="margin-top:10px">Вы загадывали вопрос. Вытяните ответ</h3>
+   <div class="card block oracle"><span class="eyebrow" style="color:#fff">Послание на сегодня</span><h3 style="margin-top:10px">Загадайте вопрос — и вытяните ответ</h3>
      <p class="msg" id="msg">☾</p><button class="btn" id="msgBtn">Вытянуть послание</button></div>
    <div class="card block"><h3>Практики на 7 дней для ${a.gen}</h3><div class="practice">${a.practices.map(p=>`<div><small>${p[0]}</small><b>${p[1]}</b>${p[2]}</div>`).join('')}</div></div>
 
@@ -570,7 +566,7 @@ function renderResult(){
    <div class="share"><button class="btn ghost" id="shareBtn">Поделиться результатом</button><button class="btn ghost" id="againBtn">Пройти ещё раз</button></div>
   </div>`;
   show('s-res'); track('quiz2_result_'+k);
-  const bc=$('#bigCard'); bc.onclick=()=>{if(bc.classList.contains('flip'))return;bc.classList.add('flip');$('#tapHint').textContent=a.sub;setTimeout(()=>{$('#rest').classList.add('on');bind();},900);};
+  const bc=$('#bigCard'); setTimeout(()=>{bc.classList.add('flip');$('#tapHint').textContent=a.sub;setTimeout(()=>{$('#rest').classList.add('on');bind();},900);},700);
   function bind(){
     const so=$('#shadowOut');document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{b.classList.toggle('sel');b.setAttribute('aria-pressed',b.classList.contains('sel'));const n=document.querySelectorAll('[data-s].sel').length;
       so.textContent=n===0?'':n===1?'Один признак — сила пока лишь напоминает о себе.':n<a.shadow.length?`${n} из ${a.shadow.length} — дар уже настойчиво просится наружу.`:'Все признаки. Сила давно ждёт, когда вы ею займётесь.';});
